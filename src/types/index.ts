@@ -87,7 +87,7 @@ export interface ProcessingPipelineStage {
   description: string;
   modelOrMethod: string;
   latencyMs: number;
-  status: 'COMPLETE' | 'PROCESSING' | 'STANDBY';
+  status: 'DEMO' | 'PROCESSING' | 'STANDBY';
   outputArtifact: string;
   inputShape: string;
 }

@@ -122,7 +122,7 @@ export const AlgorithmModal: React.FC<AlgorithmModalProps> = ({
                 <div style={{ display: 'flex', gap: '10px', background: '#F8FAFC', padding: '10px', border: '1px solid var(--border-light)', borderRadius: '3px' }}>
                   <span className="font-mono" style={{ fontWeight: 700, color: '#1D4ED8' }}>03.</span>
                   <div>
-                    <strong>Vortex Localization & Storm-Centered Crop:</strong> YOLOv8x-Tropical localizes the vortex core; a 512×512 storm-centered cylindrical equidistant tensor is extracted.
+                    <strong>Vortex Localization & Storm-Centered Crop:</strong> Cyclone Center Estimation localizes the vortex core; a 512×512 storm-centered cylindrical equidistant tensor is extracted.
                   </div>
                 </div>
 
