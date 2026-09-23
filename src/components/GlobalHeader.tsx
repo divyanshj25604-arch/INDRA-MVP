@@ -1,25 +1,30 @@
 import React from 'react';
-import { ShieldAlert, Radio, Database, Cpu, Clock, User, AlertTriangle } from 'lucide-react';
+import { Compass, ShieldAlert, Bell, HelpCircle, AlertTriangle } from 'lucide-react';
 
 interface GlobalHeaderProps {
   currentTab: string;
   onSelectTab: (tab: string) => void;
   isDemoMode: boolean;
   onToggleDemoMode: () => void;
+  onOpenMethodology: () => void;
 }
 
 export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
+  currentTab,
+  onSelectTab,
   isDemoMode,
   onToggleDemoMode,
+  onOpenMethodology,
 }) => {
   return (
     <header className="global-header-container">
-      {/* Primary Institutional Bar */}
-      <div className="main-header-row">
+      {/* Primary Brand & Navigation Bar */}
+      <div className="main-header-row" style={{ padding: '8px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* Left: Brand */}
         <div className="header-left">
           <div className="gov-seal">
-            <span className="seal-text">GOVT OF INDIA</span>
-            <div className="seal-sub">METEOROLOGICAL RESEARCH & DECISION SUPPORT</div>
+            <span className="seal-text">DECISION SUPPORT</span>
+            <div className="seal-sub">SIH 2026 &bull; PS 26070</div>
           </div>
           <div className="title-block">
             <div className="brand-line">
@@ -28,79 +33,79 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
               <h1 className="brand-fullname">CYCLONE INTELLIGENCE & FORECAST SYSTEM</h1>
             </div>
             <div className="brand-subtitle">
-              North Indian Ocean Basin &bull; Tropical Cyclone Pattern Identification, Classification & Ensemble Prediction
+              North Indian Ocean Basin &bull; Multi-Source Tropical Cyclone Identification, Classification & Prediction
             </div>
           </div>
         </div>
 
-        <div className="header-right">
-          <div className="header-telemetry-group">
-            <div className="telemetry-item">
-              <span className="telemetry-label">SYSTEM STATE</span>
-              <span className="telemetry-val text-safe">
-                <span className="pulse-dot"></span> OPERATIONAL
-              </span>
-            </div>
+        {/* Center: Primary Product Navigation */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'rgba(255,255,255,0.06)', padding: '3px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <button
+            onClick={() => onSelectTab('cyclones')}
+            className={`nav-tab-btn ${currentTab === 'cyclones' ? 'active' : ''}`}
+            style={{ borderRadius: '3px', borderBottom: 'none', padding: '6px 14px' }}
+          >
+            <Compass size={14} />
+            <span>CYCLONES</span>
+          </button>
 
-            <div className="telemetry-divider"></div>
+          <button
+            onClick={() => onSelectTab('post_landfall')}
+            className={`nav-tab-btn ${currentTab === 'post_landfall' ? 'active' : ''}`}
+            style={{ borderRadius: '3px', borderBottom: 'none', padding: '6px 14px' }}
+          >
+            <ShieldAlert size={14} />
+            <span>POST-LANDFALL</span>
+          </button>
 
-            <div className="telemetry-item">
-              <span className="telemetry-label">INSAT-3D/3DR</span>
-              <span className="telemetry-val text-info">AVAILABLE</span>
-            </div>
+          <button
+            onClick={() => onSelectTab('alerts')}
+            className={`nav-tab-btn ${currentTab === 'alerts' ? 'active' : ''}`}
+            style={{ borderRadius: '3px', borderBottom: 'none', padding: '6px 14px' }}
+          >
+            <Bell size={14} />
+            <span>ALERTS</span>
+          </button>
+        </div>
 
-            <div className="telemetry-item">
-              <span className="telemetry-label">IMD BEST TRACK</span>
-              <span className="telemetry-val text-info">AVAILABLE</span>
-            </div>
-
-            <div className="telemetry-item">
-              <span className="telemetry-label">WEATHERNEXT</span>
-              <span className="telemetry-val text-warn">AVAILABLE / DEMO</span>
-            </div>
-
-            <div className="telemetry-divider"></div>
-
-            <div className="telemetry-item font-mono">
-              <span className="telemetry-label">TIMESTAMP (IST)</span>
-              <span className="telemetry-val">22 SEP 2026 | 14:30:00</span>
-            </div>
-
-            <div className="telemetry-divider"></div>
-
-            <div className="operator-box">
-              <User size={13} className="text-secondary" />
-              <div className="operator-details">
-                <span className="operator-role">METEOROLOGICAL ANALYSIS UNIT</span>
-                <span className="operator-station">DUTY SCIENTIST: RSMC-DIV</span>
-              </div>
-            </div>
-
-            <button
-              onClick={onToggleDemoMode}
-              className={`demo-toggle-btn ${isDemoMode ? 'active-demo' : ''}`}
-              title="Click to toggle simulation parameters"
-            >
-              <span className="demo-indicator">●</span> DEMO MODE: ON
-            </button>
+        {/* Right: Demo Mode & Methodology */}
+        <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="font-mono" style={{ fontSize: '10px', color: '#94A3B8' }}>
+            22 SEP 2026 | 14:00 IST
           </div>
+
+          <button
+            onClick={onToggleDemoMode}
+            className={`demo-toggle-btn ${isDemoMode ? 'active-demo' : ''}`}
+            title="Click to view simulation parameters"
+          >
+            <span className="demo-indicator">●</span> DEMO MODE
+          </button>
+
+          <button
+            onClick={onOpenMethodology}
+            className="transparency-trigger-btn"
+            title="Inspect Data Sources, AI Models & Validation"
+          >
+            <HelpCircle size={13} />
+            <span>Methodology</span>
+          </button>
         </div>
       </div>
 
-      {/* Persistent Status & Official Disclaimer Strip */}
-      <div className="status-strip">
-        <div className="status-strip-left">
-          <span className="status-strip-title">DATA INGESTION PIPELINE:</span>
-          <span className="feed-status"><Radio size={11} className="feed-icon" /> MOSDAC L1B (4km IR): <strong className="font-mono">14:00 IST</strong></span>
-          <span className="feed-status"><Database size={11} className="feed-icon" /> IMD RSMC Advisory: <strong className="font-mono">12:00 IST</strong></span>
-          <span className="feed-status"><Cpu size={11} className="feed-icon" /> WeatherNext Ens (50-member): <strong className="font-mono">14:05 IST</strong></span>
-          <span className="sync-note font-mono">Sync: 14:28:12 IST</span>
+      {/* Subtle Persistent Disclaimer Strip */}
+      <div className="status-strip" style={{ padding: '3px 16px', background: '#070F1A', borderBottom: '1px solid #1A2636' }}>
+        <div className="status-strip-left" style={{ fontSize: '10px', color: '#94A3B8' }}>
+          <span>BASIN TELEMETRY:</span>
+          <span style={{ color: '#E2E8F0' }}>2 Available Systems (BOB-2601, ARB-2602)</span>
+          <span style={{ color: '#64748B' }}>&bull;</span>
+          <span>Sensors: INSAT-3D TIR-1 (4km) &bull; WeatherNext Ensemble (50-member)</span>
         </div>
 
         <div className="status-strip-right">
-          <span className="official-disclaimer">
-            <AlertTriangle size={12} className="disclaimer-icon" />
-            Decision-support prototype for SIH 2026 (PS 26070). Official warnings remain the responsibility of authorized meteorological agencies.
+          <span className="official-disclaimer" style={{ fontSize: '10px' }}>
+            <AlertTriangle size={11} className="disclaimer-icon" />
+            Decision-support prototype. Official warnings remain the responsibility of authorized meteorological agencies.
           </span>
         </div>
       </div>

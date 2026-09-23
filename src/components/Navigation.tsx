@@ -1,19 +1,5 @@
 import React from 'react';
-import {
-  LayoutDashboard,
-  Compass,
-  Satellite,
-  Layers,
-  TrendingUp,
-  GitBranch,
-  Flame,
-  ShieldAlert,
-  RotateCcw,
-  CheckCircle2,
-  Database,
-  Activity,
-  HelpCircle,
-} from 'lucide-react';
+import { Compass, ShieldAlert, Bell, HelpCircle } from 'lucide-react';
 
 export interface NavTabItem {
   id: string;
@@ -27,100 +13,40 @@ export interface NavTabItem {
 interface NavigationProps {
   activeTab: string;
   onSelectTab: (tabId: string) => void;
-  onOpenTransparencyModal?: () => void;
+  onOpenMethodology?: () => void;
 }
 
 export const NAV_TABS: NavTabItem[] = [
   {
-    id: 'command_center',
-    label: 'COMMAND CENTER',
-    shortLabel: 'Overview',
-    icon: <LayoutDashboard size={14} />,
-  },
-  {
-    id: 'active_systems',
-    label: 'ACTIVE SYSTEMS',
-    shortLabel: 'Active',
+    id: 'cyclones',
+    label: 'CYCLONES',
+    shortLabel: 'Cyclones',
     icon: <Compass size={14} />,
     badge: '2 ACTIVE',
     badgeType: 'danger',
   },
   {
-    id: 'satellite_analysis',
-    label: 'SATELLITE ANALYSIS',
-    shortLabel: 'Satellite',
-    icon: <Satellite size={14} />,
-    badge: 'INSAT-3D',
-    badgeType: 'info',
-  },
-  {
-    id: 'cyclone_analysis',
-    label: 'CYCLONE STRUCTURE',
-    shortLabel: 'Structure',
-    icon: <Layers size={14} />,
-  },
-  {
-    id: 'forecast',
-    label: 'WEATHERNEXT FORECAST',
-    shortLabel: 'Forecast',
-    icon: <TrendingUp size={14} />,
-    badge: '15-DAY',
-    badgeType: 'neutral',
-  },
-  {
-    id: 'ensemble_uncertainty',
-    label: 'ENSEMBLE & UNCERTAINTY',
-    shortLabel: 'Ensemble',
-    icon: <GitBranch size={14} />,
-    badge: '50 MEMBERS',
+    id: 'post_landfall',
+    label: 'POST-LANDFALL',
+    shortLabel: 'Impact',
+    icon: <ShieldAlert size={14} />,
+    badge: '6 DISTRICTS',
     badgeType: 'warn',
   },
   {
-    id: 'rapid_intensification',
-    label: 'RAPID INTENSIFICATION',
-    shortLabel: 'RI Monitor',
-    icon: <Flame size={14} />,
-    badge: 'HIGH SIGNAL',
-    badgeType: 'danger',
-  },
-  {
-    id: 'impact_risk',
-    label: 'IMPACT & RISK',
-    shortLabel: 'District Risk',
-    icon: <ShieldAlert size={14} />,
-    badge: '6 DISTRICTS',
-    badgeType: 'danger',
-  },
-  {
-    id: 'historical_replay',
-    label: 'HISTORICAL REPLAY',
-    shortLabel: 'Replay',
-    icon: <RotateCcw size={14} />,
-  },
-  {
-    id: 'model_validation',
-    label: 'MODEL VALIDATION',
-    shortLabel: 'Validation',
-    icon: <CheckCircle2 size={14} />,
-  },
-  {
-    id: 'data_sources',
-    label: 'DATA SOURCES',
-    shortLabel: 'Sources',
-    icon: <Database size={14} />,
-  },
-  {
-    id: 'system_status',
-    label: 'SYSTEM HEALTH & PIPELINE',
-    shortLabel: 'Pipeline',
-    icon: <Activity size={14} />,
+    id: 'alerts',
+    label: 'ALERTS',
+    shortLabel: 'Alerts',
+    icon: <Bell size={14} />,
+    badge: 'SIGNALS',
+    badgeType: 'info',
   },
 ];
 
 export const Navigation: React.FC<NavigationProps> = ({
   activeTab,
   onSelectTab,
-  onOpenTransparencyModal,
+  onOpenMethodology,
 }) => {
   return (
     <nav className="subnav-container">
@@ -146,14 +72,14 @@ export const Navigation: React.FC<NavigationProps> = ({
       </div>
 
       <div className="nav-actions">
-        {onOpenTransparencyModal && (
+        {onOpenMethodology && (
           <button
-            onClick={onOpenTransparencyModal}
+            onClick={onOpenMethodology}
             className="transparency-trigger-btn"
             title="Inspect AI & Forecast Methodology"
           >
             <HelpCircle size={13} />
-            <span>HOW WAS THIS CALCULATED?</span>
+            <span>METHODOLOGY</span>
           </button>
         )}
       </div>
